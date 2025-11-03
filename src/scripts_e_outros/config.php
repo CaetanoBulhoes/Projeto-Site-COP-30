@@ -1,24 +1,22 @@
 <?php 
 declare(strict_types = 1);
 
-$nomedb = "cop_30_db";
-$usuario = "root";
-$senha = "";
-$host = "localhost";
+ini_set('session.cookie.httponly','1');
 
-$dsn = "mysql:host=$host;nomedb=$nomedb;charset=utf8mb4";
+session_start();
 
-$opcoes = [
-    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
-];
+$db_host = 'localhost';
+$nome_db= 'cop30db';
+$usuario = 'root';
+$senha = '123456';
 
-try{
-    $pdo = new PDO($dsn,$usuario,$senha,$opcoes);
+
+try {
+
+    $conexao = new mysqli($db_host,$usuario,$senha,$nome_db);
+} 
+catch (mysqli_sql_exception $e) {
+    exit('Problema ao se conectar com o banco de dados: ' . $e->getMessage());
 }
-catch(PDOException $e){
-    exit('Problema ao se conectar com o banco de dados');
-}
 
-ini_set('session.cookie.httponly','1')
 ?>

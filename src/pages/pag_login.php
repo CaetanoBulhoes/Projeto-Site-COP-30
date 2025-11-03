@@ -4,33 +4,39 @@ require_once '../scripts_e_outros/funcoes.php';
 
 $error = [];
 
-if($_SERVER['REQUEST_METHOD'] === 'POST'){
-    if(!verificar_csrf_token($_POST['csrf'] ?? '')){
-        $error[] = 'Token csrf inválido.';
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    if (!verificar_csrf_token($_POST['csrf'] ?? '')) {
+        $error[] = 'Token CSRF inválido.';
     }
 
-    $usuariaOuEmail = limpar($_POST['username'] ?? '');
-    $senha = $_POST['password'];
+    $usuariaOuEmail = limpar($_POST['usuario'] ?? '');
+    $senha = $_POST['senha'] ?? '';
 
-    if(!$usuariaOuEmail || !$senha){
-        $error[] = 'Preencha o usuario/email e senha.';
-    }
-    else{
-        $comando = $pdo -> prepare('SELECT id_cliente, nome_cliente, senha_hash FROM cliente WHERE nome_cliente = identificador OR email = :identificador LIMIT 1');
-        $comando -> execute([':identificador' => $usuariaOuEmail]);
-        $usuario = $comando -> fetch();
-        if($usuario && password_verify($senha,$user['senha_hash'])){
-            session_regenerate_id(1);
-            $_SESSION['user_id'] = (int)$user['id'];
+    if (!$usuariaOuEmail || !$senha) {
+        $error[] = 'Preencha o usuário/email e senha.';
+    } else {
+        $comando = $conexao->prepare(
+            'SELECT id_cliente, nome_cliente, senha_hash FROM cliente WHERE nome_cliente = ? OR email_cliente = ? LIMIT 1'
+        );
+        $comando->bind_param('ss', $usuariaOuEmail, $usuariaOuEmail);
+        $comando->execute();
+        $resultado = $comando->get_result();
+        $user = $resultado->fetch_assoc();
+
+        if ($user && password_verify($senha, $user['senha_hash'])) {
+            session_regenerate_id(true);
+            $_SESSION['user_id'] = (int)$user['id_cliente'];
             $_SESSION['username'] = $user['nome_cliente'];
-            header('Location:pag_principal.php');
+            header('Location: pag_principal.php');
             exit;
+
+        } 
+        else {
+            $error[] = 'Usuário ou senha incorretos.';
         }
-        else{
-            $error[] = 'Usuario ou senha incorretos.';
-        }
-    } 
-}      
+    }
+}
 
 $csrf = gerar_csrf_token();
 ?>
@@ -54,17 +60,19 @@ $csrf = gerar_csrf_token();
         <section class="login-box">
             <h1>EcoBelém</h1>
             <p>Produtos Artesanais Amazônicos</p>
-            <form action="#" method="post">
-                <label for="email">E-mail</label>
-                <input type="email" id="email" name="email" placeholder="seuemail@exemplo.com" required><br><br>
+            <form action="" method="POST">
+                <input type="hidden" name="csrf" value="<?= $csrf ?>">
+                <label for="email">Usuario ou E-mail</label> <br>
+                <input name="usuario" placeholder="seuemail@exemplo.com" required><br><br>
 
-                <label for="senha">Senha</label>
+                <label for="senha">Senha</label> <br>
                 <input type="password" id="senha" name="senha" placeholder="Digite sua senha" required><br><br>
                 
-                <button type="submit">Entrar</button>
+                <button type="submit">Entrar</button> <br>
 
-                <p class="cadastro">Não tem cadastro?<br><a href="pag_cadastro.php">Cadastre-se</a></p>
+    
             </form>
+            <p class="cadastro">Não tem cadastro?<br><a href="pag_cadastro.php">Cadastre-se</a></p>
         </section>
     </main>
 </body>
