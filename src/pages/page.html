@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produtos Artesanais</title>
+
+</head>
+<body>
+    <section class="hero"></section>
+    <h1>Feito á mão com amor</h1>
+    <p>Descubra produtos artesanais únicos perfeitos para presentear ou decorar seu lar.</p>  
+    
+    <div class="filtros">
+     <button onclick="filtrarProdutos('todos')"
+class="ativo">Todos</button>
+     <button onclick="filtrarProdutos('croche')">Croche</button>
+     <button onclick="filtrarProdutos('ceramica')">Ceramica</button>
+     <button onclick="filtrarProdutos('bordado')">Bordado</button>
+    </div>
+
+<section class="produtos" id="lista-produtos"></section>
+
+<div id="model-carrinho" class="modal">
+    <div class="conteúdo">
+        <span class="fechar" onclick="fecharCarrinho()">x</span>
+        <h2>Seu carrinho</h2>
+        <ul id="itens-carrinho"></ul>
+        <p class="total">Total:R$ <span id="total">0,00</span></p>
+        <button onclick="finalizarCompra()">Finalizar Compra</button>
+    </div>
+</div>
+
+<footer>
+    @ 2025 EcoBelém - Feito com carinho
+</footer>
+
+</body>
+</html>
