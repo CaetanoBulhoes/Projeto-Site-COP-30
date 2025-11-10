@@ -24,7 +24,7 @@ function esta_logado(){
 
 function precisa_logar(){
     if(!esta_logado()){
-        header('Location:../pages/loginpage.php');
+        header('Location:../pages/pag_login.php');
         exit;
     }
 }

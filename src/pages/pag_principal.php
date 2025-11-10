@@ -1,7 +1,7 @@
 <?php
 require_once '../scripts_e_outros/funcoes.php';
 require_once '../scripts_e_outros/config.php';
-esta_logado();
+precisa_logar();
 
 ?>
 
@@ -10,11 +10,12 @@ esta_logado();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Principal</title>
+    <title>EcoBelém - Home</title>
 </head>
 <body>
     <h2>Olá, <?= htmlspecialchars($_SESSION['username'])?></h2>
-    <p>Funcionou?</p>
+    <p>Funcionou? não</p>
+    <p><a href="pag_adicionar_produtos.php">Adicionar produto</a></p>
     <p><a href="../scripts_e_outros/deslogar.php">Sair</a></p>
 </body>
 </html>

@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($user && password_verify($senha, $user['senha_hash'])) {
             session_regenerate_id(true);
-            $_SESSION['user_id'] = (int)$user['id_cliente'];
+            $_SESSION['id_cliente'] = (int)$user['id_cliente'];
             $_SESSION['username'] = $user['nome_cliente'];
             header('Location: pag_principal.php');
             exit;
@@ -47,7 +47,7 @@ $csrf = gerar_csrf_token();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EcoBelém - Login</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../style/style_login.css">
 </head>
 <body>
     <?php

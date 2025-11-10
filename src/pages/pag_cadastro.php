@@ -14,6 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = filter_var($_POST['email'] ?? '', FILTER_VALIDATE_EMAIL);
     $senha = $_POST['senha'] ?? '';
     $confirme_senha = $_POST['confirme_senha'] ?? '';
+    $tipo_usuario = 'cliente' ?? '';
 
     if (!$usuario) $error[] = "Nome de usuário obrigatório!";
     if (!$email) $error[] = "Email inválido.";
@@ -35,14 +36,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
 
         
-            $inserir = $conexao->prepare('INSERT INTO cliente (`nome_cliente`,`email_cliente`,`senha_hash`) VALUES (?,?,?)');
-            $inserir->bind_param('sss', $usuario, $email, $senha_hash);
+            $inserir = $conexao->prepare('INSERT INTO cliente (`nome_cliente`,`email_cliente`,`senha_hash`,`tipo_usuario`) VALUES (?,?,?,?)');
+            $inserir->bind_param('sss', $usuario, $email, $senha_hash,$tipo_usuario);
 
             if ($inserir->execute()) {
                 $_SESSION['user_id'] = (int)$conexao->insert_id;
                 $_SESSION['username'] = $usuario;
 
-                header('Location: pag_principal.php');
+                header('Location:pag_principal.php');
                 exit;
 
             } else {
@@ -59,7 +60,7 @@ $csrf = gerar_csrf_token();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro</title> 
+    <title>EcoBelém - Cadastro</title> 
 </head>
 <body>
 
