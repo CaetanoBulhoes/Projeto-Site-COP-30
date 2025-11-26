@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             session_regenerate_id(true);
             $_SESSION['id_cliente'] = (int)$user['id_cliente'];
             $_SESSION['username'] = $user['nome_cliente'];
-            header('Location: pag_principal.php');
+            header('Location: pag_Eco.php');
             exit;
 
         } 
@@ -48,32 +48,37 @@ $csrf = gerar_csrf_token();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EcoBelém - Login</title>
     <link rel="stylesheet" href="../style/style_login.css">
+    <link rel="stylesheet" href="../style/style_login2.css">
 </head>
 <body>
-    <?php
-    if(!empty($error)):
-    ?>
-    <ul style="color: red;">  <?php foreach($error as $e) echo "<li>" . $e . "</li>"?>  </ul>
-
-    <?php endif; ?>
-    <main class="container">
-        <section class="login-box">
-            <h1>EcoBelém</h1>
-            <p>Produtos Artesanais Amazônicos</p>
-            <form action="" method="POST">
-                <input type="hidden" name="csrf" value="<?= $csrf ?>">
-                <label for="email">Usuario ou E-mail</label> <br>
-                <input name="usuario" placeholder="seuemail@exemplo.com" required><br><br>
-
-                <label for="senha">Senha</label> <br>
-                <input type="password" id="senha" name="senha" placeholder="Digite sua senha" required><br><br>
-                
-                <button type="submit">Entrar</button> <br>
-
     
-            </form>
-            <p class="cadastro">Não tem cadastro?<br><a href="pag_cadastro.php">Cadastre-se</a></p>
-        </section>
-    </main>
+    <main class="container">
+    <section class="login-box">
+        <h1>EcoBelém</h1>
+        <p>Produtos Artesanais Amazônicos</p>
+
+        <?php if (!empty($error)): ?>
+    <div class="erro">
+        <?php foreach ($error as $e): ?>
+            <p><?= $e ?></p>
+        <?php endforeach; ?>
+    </div>
+        <?php endif; ?>
+
+        <form action="" method="POST">
+            <input type="hidden" name="csrf" value="<?= $csrf ?>">
+
+            <label for="email">Usuario ou E-mail</label>
+            <input name="usuario" placeholder="seuemail@exemplo.com" required>
+
+            <label for="senha">Senha</label>
+            <input type="password" id="senha" name="senha" placeholder="Digite sua senha" required>
+
+            <button type="submit">Entrar</button>
+        </form>
+
+        <p class="cadastro">Não tem cadastro?<br><a href="pag_cadastro.php">Cadastre-se</a></p>
+    </section>
+</main>
 </body>
 </html>

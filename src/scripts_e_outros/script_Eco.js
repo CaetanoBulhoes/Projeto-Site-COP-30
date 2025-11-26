@@ -128,41 +128,79 @@ function calcularFretePorCep(cep){
 }
 
 // botão calcular frete
-calcFreteBtn.addEventListener('click', ()=>{
-  const cep = (cepInput.value || '').trim();
-  if(cep.length < 8){
+calcFreteBtn.addEventListener('click', async ()=>{
+  const cep = (cepInput.value || '').replace(/\D/g, ''); // só números
+  
+  if(cep.length !== 8){
     alert('Digite um CEP válido (8 números).');
     return;
   }
-  const frete = calcularFretePorCep(cep);
-  freteValueEl.textContent = frete.toFixed(2);
-  const subtotal = cart.reduce((s,i)=> s + (i.price * i.qty), 0);
-  subtotalEl.textContent = subtotal.toFixed(2);
-  totalEl.textContent = (subtotal + frete).toFixed(2);
-});
+    
+  try {
+    const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+    const data = await response.json();
 
-// finalizar compra (simulação)
-checkoutBtn.addEventListener('click', ()=>{
-  if(cart.length === 0) { alert('Seu carrinho está vazio.'); return; }
-  alert('Simulação: compra finalizada. Implementar gateway de pagamento real para produção.');
-  cart = [];
-  updateCartCount();
-  renderCart();
-  closeCartFn();
-});
-
-let index = 0;
-
-function mudarSlide() {
-    const slides = document.querySelectorAll(".slide");
-    index++;
-
-    if (index >= slides.length) {
-        index = 0;
+    if(data.erro){
+      alert('CEP não encontrado.');
+      return;
     }
 
-    document.querySelector(".slides").style.transform =
-        `translateX(${-index * 100}%)`;
-}
+    // exemplo de lógica de frete baseada no estado (UF)
+    let frete = 25;
 
-setInterval(mudarSlide, 3000);
+    if(data.uf === "PA"){ frete = 10; }
+    else if(["AM","AC","AP","RO","RR"].includes(data.uf)){ frete = 15; }
+    else if(["SP","RJ","MG","ES"].includes(data.uf)){ frete = 20; }
+
+    freteValueEl.textContent = frete.toFixed(2);
+
+    // recalcular total
+    const subtotal = cart.reduce((s,i)=> s + (i.price * i.qty), 0);
+    subtotalEl.textContent = subtotal.toFixed(2);
+    totalEl.textContent = (subtotal + frete).toFixed(2);
+
+  } catch (e) {
+    console.log(e);
+    alert("Erro ao consultar o ViaCEP.");
+  }
+});
+
+// finalizar compra (envia ao PHP)
+checkoutBtn.addEventListener('click', async ()=>{
+  if(cart.length === 0){
+    alert("Seu carrinho está vazio!");
+    return;
+  }
+
+  const frete = parseFloat(freteValueEl.textContent || "0");
+  const subtotal = cart.reduce((s,i)=> s + (i.price * i.qty), 0);
+  const total = subtotal + frete;
+
+  const dados = {
+    itens: cart,
+    subtotal: subtotal,
+    frete: frete,
+    total: total
+  };
+
+  try {
+    const resposta = await fetch("../scripts_e_outros/finalizar_compra.php", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(dados)
+    });
+
+    const texto = await resposta.text();
+    alert(texto);
+
+    // limpa o carrinho após sucesso
+    cart = [];
+    updateCartCount();
+    renderCart();
+    closeCartFn();
+
+  } catch (e) {
+    console.error(e);
+    alert("Erro ao enviar os dados da compra.");
+  }
+});

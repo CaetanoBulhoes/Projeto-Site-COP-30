@@ -82,3 +82,31 @@ button:hover{
 .cadastro a:hover{
     text-decoration: underline;
 }
+
+.erro {
+    background-color: #ffdddd;
+    border: 1px solid #ff5c5c;
+    color: #a30000;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    text-align: left;
+    font-size: .9em;
+}
+.erro p {
+    margin: 5px 0;
+}
+
+.erro {
+    background-color: #ffdddd;
+    border: 1px solid #ff5c5c;
+    color: #a30000;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    text-align: left;
+    font-size: .9em;
+}
+.erro p {
+    margin: 5px 0;
+}

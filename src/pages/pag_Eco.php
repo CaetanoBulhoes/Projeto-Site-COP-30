@@ -1,11 +1,18 @@
+<?php
+require_once '../scripts_e_outros/funcoes.php';
+require_once '../scripts_e_outros/config.php';
+precisa_logar();
+
+?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>EcoBélem — Produtos</title>
-  <link rel="stylesheet" href="Eco.css" />
-
+  <link rel="stylesheet" href="../style/style_Eco.css" />
+  <link rel="stylesheet" href="../style/style_Eco2.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
@@ -40,7 +47,13 @@
         <path d="M3 3h2l3 12h10l3-8H6" stroke-width="2" fill="none"/>
     </svg>
     <span id="cart-count">0</span>
-</button>
+      </button>
+
+      <!-- Botão de Logout -->
+  <a href="../scripts_e_outros/deslogar.php" class="logout-btn" >
+      <i class="fa-solid fa-right-from-bracket"></i> Sair
+  </a>
+
     </div>
   </header>
 
@@ -48,10 +61,10 @@
   <section class="hero">
     <div class="carousel">
       <div class="slides" src="...">
-      <img src="Imagens/Carrossel/banner1.jpg.jpeg"carrossel 1" class="slide">
-      <img src="Imagens/Carrossel/banner2.jpg.jpeg" alt="carrossel 2" class="slide">
-      <img src="Imagens/Carrossel/banner3.jpg.jpeg" alt="carrosel 3" class="slide">
-      <img src="Imagens/Carrossel/banner4.jpg.jpeg" alt="carrosel 4" class="slide">
+      <img src="../assets/../assets/Imagens/Carrossel/banner1.jpg.jpeg"carrossel 1" class="slide">
+      <img src="../assets/Imagens/Carrossel/banner2.jpg.jpeg" alt="carrossel 2" class="slide">
+      <img src="../assets/Imagens/Carrossel/banner3.jpg.jpeg" alt="carrosel 3" class="slide">
+      <img src="../assets/Imagens/Carrossel/banner4.jpg.jpeg" alt="carrosel 4" class="slide">
     </div>
     </div>
 
@@ -67,7 +80,7 @@
 
     <div class="product-grid">
       <article class="product-card" data-id="1" data-name="Cesto de Palha" data-price="49.90">
-        <img src="Imagens/Produtos/img-produto1.jpg.jpeg" alt="Cesto de Palha">
+        <img src="../assets/Imagens/Produtos/img-produto1.jpg.jpeg" alt="Cesto de Palha">
         <h3>Cesto de Palha</h3>
         <p class="price">R$ 30,00</p>
         <button class="add-btn">Adicionar</button>
@@ -75,7 +88,7 @@
 
 
       <article class="product-card" data-id="2" data-name="Vaso de Barro" data-price="59.90">
-        <img src="Imagens/Produtos/img-produto2.jpg.jpeg" alt="Vaso de Barro">
+        <img src="../assets/Imagens/Produtos/img-produto2.jpg.jpeg" alt="Vaso de Barro">
         <h3>Vaso de Barro</h3>
         <p class="price">R$ 59,90</p>
         <button class="add-btn">Adicionar</button>
@@ -83,7 +96,7 @@
 
       
       <article class="product-card" data-id="3" data-name="Tapete de Fibra" data-price="89.90">
-        <img src="Imagens/Produtos/img-produto3.jpg.jpeg" alt="Tapete de Fibra">
+        <img src="../assets/Imagens/Produtos/img-produto3.jpg.jpeg" alt="Tapete de Fibra">
         <h3>Tapete de Fibra</h3>
         <p class="price">R$ 89,90</p>
         <button class="add-btn">Adicionar</button>
@@ -91,7 +104,7 @@
 
   
       <article class="product-card" data-id="4" data-name="Vela Artesanal" data-price="29.90">
-        <img src="Imagens/Produtos/img-produto4.jpg.jpeg" alt="Vela Artesanal">
+        <img src="../assets/Imagens/Produtos/img-produto4.jpg.jpeg" alt="Vela Artesanal">
         <h3>Vela Artesanal</h3>
         <p class="price">R$ 29,90</p>
         <button class="add-btn">Adicionar</button>
@@ -99,7 +112,7 @@
 
       
       <article class="product-card" data-id="5" data-name="Sabonete Natural" data-price="15.00">
-        <img src="Imagens/Produtos/img-produto5.jpg.jpeg" alt="Sabonete Natural">
+        <img src="../assets/Imagens/Produtos/img-produto5.jpg.jpeg" alt="Sabonete Natural">
         <h3>Sabonete Natural</h3>
         <p class="price">R$ 15,00</p>
         <button class="add-btn">Adicionar</button>
@@ -107,7 +120,7 @@
 
       
       <article class="product-card" data-id="6" data-name="Óleo de Andiroba" data-price="40.00">
-        <img src="Imagens/Produtos/img-produto6.jpg.jpeg" alt="Óleo de Andiroba">
+        <img src="../assets/Imagens/Produtos/img-produto6.jpg.jpeg" alt="Óleo de Andiroba">
         <h3>Manta</h3>
         <p class="price">R$ 40,00</p>
         <button class="add-btn">Adicionar</button>
@@ -115,7 +128,7 @@
 
       
       <article class="product-card" data-id="7" data-name="Pulseira de Semente" data-price="25.00">
-        <img src="Imagens/Produtos/img-produto7.jpg.jpeg" alt="Pulseira de Semente">
+        <img src="../assets/Imagens/Produtos/img-produto7.jpg.jpeg" alt="Pulseira de Semente">
         <h3>Pulseira de Semente</h3>
         <p class="price">R$ 25,00</p>
         <button class="add-btn">Adicionar</button>
@@ -123,7 +136,7 @@
 
       
       <article class="product-card" data-id="8" data-name="Ecobag" data-price="90.00">
-        <img src="Imagens/Produtos/img-produto8.jpg.jpeg" alt="Ecobag">
+        <img src="../assets/Imagens/Produtos/img-produto8.jpg.jpeg" alt="Ecobag">
         <h3>Ecobag</h3>
         <p class="price">R$ 40,00</p>
         <button class="add-btn">Adicionar</button>
@@ -131,7 +144,7 @@
 
       
       <article class="product-card" data-id="9" data-name="Chaveiro Regional" data-price="10.00">
-        <img src="Imagens/Produtos/img-produto9.jpg.jpeg" alt="Chaveiro Regional">
+        <img src="../assets/Imagens/Produtos/img-produto9.jpg.jpeg" alt="Chaveiro Regional">
         <h3>Chaveiro</h3>
         <p class="price">R$ 10,00</p>
         <button class="add-btn">Adicionar</button>
@@ -139,7 +152,7 @@
 
     
       <article class="product-card" data-id="10" data-name="Colar Açaí Verde e Jacarandá" data-price="55.00">
-        <img src="Imagens/Produtos/img-produto10.jpg.jpeg" alt="Colar Açaí Verde e Jacarandá">
+        <img src="../assets/Imagens/Produtos/img-produto10.jpg.jpeg" alt="Colar Açaí Verde e Jacarandá">
         <h3>Colar Açaí Verde e Jacarandá</h3>
         <p class="price">R$ 55,00</p>
         <button class="add-btn">Adicionar</button>
@@ -147,7 +160,7 @@
 
       
       <article class="product-card" data-id="11" data-name="Quadro Bordado" data-price="120.00">
-        <img src="Imagens/Produtos/img-produto11.jpg.jpeg" alt="Quadro Bordado">
+        <img src="../assets/Imagens/Produtos/img-produto11.jpg.jpeg" alt="Quadro Bordado">
         <h3>Quadro Bordado</h3>
         <p class="price">R$ 120,00</p>
         <button class="add-btn">Adicionar</button>
@@ -155,7 +168,7 @@
 
       
       <article class="product-card" data-id="12" data-name="Porta Copos de Madeira" data-price="30.00">
-        <img src="Imagens/Produtos/img-produto12.jpg.jpeg" alt="Porta Copos de Madeira">
+        <img src="../assets/Imagens/Produtos/img-produto12.jpg.jpeg" alt="Porta Copos de Madeira">
         <h3>Porta Copos de Madeira</h3>
         <p class="price">R$ 30,00</p>
         <button class="add-btn">Adicionar</button>
@@ -194,6 +207,9 @@
     <p>© 2025 EcoBélem — Sustentabilidade e arte</p>
   </footer>
 
-  <script src="Eco.js"></script>
+  <script src="../scripts_e_outros/script_Eco.js"></script>
+  <script src="../scripts_e_outros/script_Eco2.js"></script>
 </body>
 </html>
+
+

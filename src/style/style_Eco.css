@@ -37,6 +37,7 @@ body{
   flex-wrap: wrap;
 }
 
+
 .logo{height:56px;object-fit:contain}
 
 /* center search */
@@ -365,4 +366,22 @@ body{
   .carousel {
     height: 260px; /* aumentei um pouco para não ficar tão pequeno */
   }
+}
+
+.logout-btn {
+  margin-left: 15px;
+  padding: 8px 14px;
+  background: #c0392b;
+  color: #fff;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logout-btn:hover {
+  background: #e74c3c;
 }
